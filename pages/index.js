@@ -1,7 +1,9 @@
+import Search from '../components/homepage/search/Search';
+
 export default function Home() {
   return (
     <div>
-      {/* Search */}
+      <Search />
       {/* Popular artists */}
       {/* Just for you section */}
       {/* Navbar */}
