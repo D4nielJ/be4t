@@ -11,26 +11,23 @@ const handleSearch = async (query, name, value, setter) => {
   }
 };
 
+const initialState = {
+  entities: [],
+  pagination: null,
+  status: 'idle',
+  error: null,
+};
+
 const Search = () => {
   const typeName = 'type';
   const typeValues = ['artist', 'master', 'release', 'label'];
   const [typeValue, setTypeValue] = useState(typeValues[0]);
-  const [typeState, setTypeState] = useState({
-    entities: [],
-    pagination: null,
-    status: 'idle',
-    error: null,
-  });
+  const [typeState, setTypeState] = useState(initialState);
 
   const formatName = 'format';
   const formatValues = ['album', 'CD', 'LP', 'Vinyl'];
   const [formatValue, setFormatValue] = useState(formatValues[0]);
-  const [formatState, setFormatState] = useState({
-    entities: [],
-    pagination: null,
-    status: 'idle',
-    error: null,
-  });
+  const [formatState, setFormatState] = useState(initialState);
 
   const [query, setQuery] = useState('');
 
@@ -46,6 +43,8 @@ const Search = () => {
 
   const cleanSearch = () => {
     setQuery('');
+    setTypeState(initialState);
+    setFormatState(initialState);
   };
 
   const handleSelectChange = (e, setValue) => {
