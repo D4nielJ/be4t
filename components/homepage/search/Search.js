@@ -71,7 +71,8 @@ const Search = () => {
       </form>
       <h2>{typeFilter.value}</h2>
       <ul>
-        {typeFilter.entities.length > 0 &&
+        {typeFilter &&
+          typeFilter.entities.length > 0 &&
           typeFilter.entities.map((e) => (
             <div key={e.id}>
               <Image
@@ -86,7 +87,8 @@ const Search = () => {
       </ul>
       <h2>{formatFilter.value}</h2>
       <ul>
-        {formatFilter.entities.length > 0 &&
+        {formatFilter &&
+          formatFilter.entities.length > 0 &&
           formatFilter.entities.map((e) => (
             <div key={e.id}>
               <Image
