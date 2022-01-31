@@ -1,28 +1,43 @@
 import React, { useEffect, useState } from 'react';
+import useApiFilter from '../../../lib/customHooks/useApiFilter';
 
-// must return a list of artists and a lists of albums ?
-
-const search = async (query, types) => {
+const search = async (query, filters) => {
   const headers = {
     Accept: '*/*',
     'User-Agent': 'Daniel Jaramillo (https://www.d4nielj.me)',
-    Authorization: 'Discogs token=vudycwjnRceFkYrIQljEPPuBWzVtDVvNHAmPOLhi',
+    Authorization: `Discogs token=${process.env.NEXT_PUBLIC_DISCOGS_URL}`,
   };
 
-  const response = await fetch(
-    `https://api.discogs.com/database/search?q=${query}&type=${types[0]}`,
-    {
-      headers,
-      method: 'GET',
+  filters.forEach(async ({ name, value, setEntities, setStatus }) => {
+    try {
+      const res = await fetch(
+        `https://api.discogs.com/database/search?q=${query}&${name}=${value}`,
+        {
+          headers,
+          method: 'GET',
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
     }
-  );
-
-  return response;
+  });
 };
 
 const Search = () => {
-  const [artists, setArtists] = useState([]);
-  const [albums, setAlbums] = useState([]);
+  const typeFilter = useApiFilter({
+    name: 'type',
+    values: ['artist', 'master', 'release', 'label'],
+  });
+
+  const formatFilter = useApiFilter({
+    name: 'format',
+    values: ['album', 'CD', 'LP', 'Vinyl'],
+  });
+
+  const filters = [typeFilter, formatFilter];
+
   const [query, setQuery] = useState('');
 
   const handleQueryChange = (e) => {
@@ -35,9 +50,7 @@ const Search = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const res = await search(query, ['artist', 'album']);
-    const data = await res.json();
-    console.log(data);
+    search(query, filters);
   };
 
   return (
