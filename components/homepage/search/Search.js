@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Image from 'next/image';
 import useApiFilter from '../../../lib/customHooks/useApiFilter';
 
 const search = async (query, filters) => {
@@ -8,21 +9,27 @@ const search = async (query, filters) => {
     Authorization: `Discogs token=${process.env.NEXT_PUBLIC_DISCOGS_URL}`,
   };
 
-  filters.forEach(async ({ name, value, setEntities, setStatus }) => {
-    try {
-      const res = await fetch(
-        `https://api.discogs.com/database/search?q=${query}&${name}=${value}`,
-        {
-          headers,
-          method: 'GET',
-        }
-      );
-      const data = await res.json();
-      console.log(data);
-    } catch (e) {
-      console.log(e);
+  filters.forEach(
+    async ({ name, value, setEntities, setStatus, setPagination }) => {
+      setStatus('loading');
+      try {
+        const res = await fetch(
+          `https://api.discogs.com/database/search?q=${query}&${name}=${value}&per_page=5`,
+          {
+            headers,
+            method: 'GET',
+          }
+        );
+        const { pagination, results } = await res.json();
+        setEntities(results);
+        setPagination(pagination);
+      } catch (e) {
+        setStatus('error');
+        console.log(e);
+      }
+      setStatus('idle');
     }
-  });
+  );
 };
 
 const Search = () => {
@@ -62,6 +69,36 @@ const Search = () => {
           Clean
         </button>
       </form>
+      <h2>{typeFilter.value}</h2>
+      <ul>
+        {typeFilter.entities.length > 0 &&
+          typeFilter.entities.map((e) => (
+            <div key={e.id}>
+              <Image
+                src={e.cover_image}
+                alt={e.title}
+                width='200px'
+                height='200px'
+              />
+              <p>{e.title}</p>
+            </div>
+          ))}
+      </ul>
+      <h2>{formatFilter.value}</h2>
+      <ul>
+        {formatFilter.entities.length > 0 &&
+          formatFilter.entities.map((e) => (
+            <div key={e.id}>
+              <Image
+                src={e.cover_image}
+                alt={e.title}
+                width='200px'
+                height='200px'
+              />
+              <p>{e.title}</p>
+            </div>
+          ))}
+      </ul>
     </div>
   );
 };
