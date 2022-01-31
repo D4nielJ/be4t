@@ -27,7 +27,7 @@ const search = async (query, filters) => {
         setStatus('error');
         console.log(e);
       }
-      setStatus('idle');
+      setStatus('success');
     }
   );
 };
@@ -69,38 +69,42 @@ const Search = () => {
           Clean
         </button>
       </form>
-      <h2>{typeFilter.value}</h2>
-      <ul>
-        {typeFilter &&
-          typeFilter.entities.length > 0 &&
-          typeFilter.entities.map((e) => (
-            <div key={e.id}>
-              <Image
-                src={e.cover_image}
-                alt={e.title}
-                width='200px'
-                height='200px'
-              />
-              <p>{e.title}</p>
-            </div>
-          ))}
-      </ul>
-      <h2>{formatFilter.value}</h2>
-      <ul>
-        {formatFilter &&
-          formatFilter.entities.length > 0 &&
-          formatFilter.entities.map((e) => (
-            <div key={e.id}>
-              <Image
-                src={e.cover_image}
-                alt={e.title}
-                width='200px'
-                height='200px'
-              />
-              <p>{e.title}</p>
-            </div>
-          ))}
-      </ul>
+      {typeFilter && typeFilter.status === 'success' && (
+        <div>
+          <h2>{typeFilter.value}</h2>
+          <ul>
+            {typeFilter.entities.map((e) => (
+              <div key={e.id}>
+                <Image
+                  src={e.cover_image}
+                  alt={e.title}
+                  width='200px'
+                  height='200px'
+                />
+                <p>{e.title}</p>
+              </div>
+            ))}
+          </ul>
+        </div>
+      )}
+      {formatFilter && formatFilter.status === 'success' && (
+        <div>
+          <h2>{formatFilter.value}</h2>
+          <ul>
+            {formatFilter.entities.map((e) => (
+              <div key={e.id}>
+                <Image
+                  src={e.cover_image}
+                  alt={e.title}
+                  width='200px'
+                  height='200px'
+                />
+                <p>{e.title}</p>
+              </div>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
