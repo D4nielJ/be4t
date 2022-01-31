@@ -1,26 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import searchOnApi from '../../../lib/searchOnApi';
 
-const searchOnApi = async (query, name, value) => {
-  const headers = {
-    Accept: '*/*',
-    'User-Agent': 'Daniel Jaramillo (https://www.d4nielj.me)',
-    Authorization: `Discogs token=${process.env.NEXT_PUBLIC_DISCOGS_URL}`,
-  };
-
-  try {
-    const res = await fetch(
-      `https://api.discogs.com/database/search?q=${query}&${name}=${value}&per_page=5`,
-      {
-        headers,
-        method: 'GET',
-      }
-    );
-    const { pagination, results: entities } = await res.json();
-    return { entities, pagination, error: null };
-  } catch (e) {
-    console.log(e);
-    return { entities: null, pagination: null, error: e };
+const handleSearch = async (query, name, value, setter) => {
+  const res = await searchOnApi(query, name, value);
+  if (!res.error) {
+    setter((prev) => ({ ...prev, ...res, status: 'success' }));
+  } else {
+    setter((prev) => ({ ...prev, ...res, status: 'error' }));
   }
 };
 
@@ -53,11 +40,8 @@ const Search = () => {
 
   const handleFormSearch = async (e) => {
     e.preventDefault();
-    const typeRes = await searchOnApi(query, typeName, typeValue);
-    setTypeState((prev) => ({ ...prev, ...typeRes, status: 'success' }));
-
-    const formatRes = await searchOnApi(query, formatName, formatValue);
-    setFormatState((prev) => ({ ...prev, ...formatRes, status: 'success' }));
+    handleSearch(query, typeName, typeValue, setTypeState);
+    handleSearch(query, formatName, formatValue, setFormatState);
   };
 
   const cleanSearch = () => {
@@ -67,28 +51,6 @@ const Search = () => {
   const handleSelectChange = (e, setValue) => {
     setValue(e.target.value);
   };
-
-  useEffect(() => {
-    const handleSearch = async () => {
-      const res = await searchOnApi(query, typeName, typeValue);
-      setTypeState((prev) => ({ ...prev, ...res, status: 'success' }));
-    };
-
-    if (query.length > 2) {
-      handleSearch();
-    }
-  }, [query, typeValue]);
-
-  useEffect(() => {
-    const handleSearch = async () => {
-      const res = await searchOnApi(query, formatName, formatValue);
-      setFormatState((prev) => ({ ...prev, ...res, status: 'success' }));
-    };
-
-    if (query.length > 2) {
-      handleSearch();
-    }
-  }, [query, formatValue]);
 
   return (
     <div>
