@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import useApiFilter from '../../../lib/customHooks/useApiFilter';
 
 const searchOnApi = async (query, name, value) => {
   const headers = {
@@ -36,10 +35,15 @@ const Search = () => {
     error: null,
   });
 
-  // const formatFilter = useApiFilter({
-  //   name: 'format',
-  //   values: ['album', 'CD', 'LP', 'Vinyl'],
-  // });
+  const formatName = 'format';
+  const formatValues = ['album', 'CD', 'LP', 'Vinyl'];
+  const [formatValue, setFormatValue] = useState(formatValues[0]);
+  const [formatState, setFormatState] = useState({
+    entities: [],
+    pagination: null,
+    status: 'idle',
+    error: null,
+  });
 
   const [query, setQuery] = useState('');
 
@@ -49,8 +53,11 @@ const Search = () => {
 
   const handleFormSearch = async (e) => {
     e.preventDefault();
-    const res = await searchOnApi(query, typeName, typeValue);
-    setTypeState((prev) => ({ ...prev, ...res, status: 'success' }));
+    const typeRes = await searchOnApi(query, typeName, typeValue);
+    setTypeState((prev) => ({ ...prev, ...typeRes, status: 'success' }));
+
+    const formatRes = await searchOnApi(query, formatName, formatValue);
+    setFormatState((prev) => ({ ...prev, ...formatRes, status: 'success' }));
   };
 
   const cleanSearch = () => {
@@ -71,6 +78,17 @@ const Search = () => {
       handleSearch();
     }
   }, [query, typeValue]);
+
+  useEffect(() => {
+    const handleSearch = async () => {
+      const res = await searchOnApi(query, formatName, formatValue);
+      setFormatState((prev) => ({ ...prev, ...res, status: 'success' }));
+    };
+
+    if (query.length > 2) {
+      handleSearch();
+    }
+  }, [query, formatValue]);
 
   return (
     <div>
@@ -97,6 +115,21 @@ const Search = () => {
         </select>
       </div>
 
+      <div>
+        <select
+          value={formatValue}
+          onChange={(e) => {
+            handleSelectChange(e, setFormatValue);
+          }}
+        >
+          {formatValues.map((v) => (
+            <option key={v} value={v}>
+              {v}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {typeState.status === 'success' && (
         <div>
           <h2>{typeValue}</h2>
@@ -116,24 +149,26 @@ const Search = () => {
           </ul>
         </div>
       )}
-      {/* {formatFilter && formatFilter.status === 'success' && (
+
+      {formatState.status === 'success' && (
         <div>
-          <h2>{formatFilter.value}</h2>
+          <h2>{formatValue}</h2>
           <ul>
-            {formatFilter.entities.map((e) => (
-              <div key={e.id}>
-                <Image
-                  src={e.cover_image}
-                  alt={e.title}
-                  width='200px'
-                  height='200px'
-                />
-                <p>{e.title}</p>
-              </div>
-            ))}
+            {formatState.entities &&
+              formatState.entities.map((e) => (
+                <div key={e.id}>
+                  <Image
+                    src={e.cover_image}
+                    alt={e.title}
+                    width='200px'
+                    height='200px'
+                  />
+                  <p>{e.title}</p>
+                </div>
+              ))}
           </ul>
         </div>
-      )} */}
+      )}
     </div>
   );
 };
