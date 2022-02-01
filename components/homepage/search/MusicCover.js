@@ -10,7 +10,6 @@ const NO_IMAGE =
 const MusicCover = ({ entity }) => {
   const { cover_image, title } = entity;
   const [mainTitle, subtitle] = title.split(' - ');
-  console.log(cover_image);
 
   return (
     <GridItem mb={4}>
@@ -36,8 +35,8 @@ const MusicCover = ({ entity }) => {
           )}
         </Box>
       </AspectRatio>
-      <Heading4 mb={1}>{mainTitle}</Heading4>
-      <Heading5>{subtitle}</Heading5>
+      <Heading4 mb={1}>{subtitle}</Heading4>
+      <Heading5>{mainTitle}</Heading5>
     </GridItem>
   );
 };
