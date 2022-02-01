@@ -4,8 +4,8 @@ const titlesMap = {
   release: 'Releases',
   label: 'Labels',
   album: 'Albums',
-  CD: `CD's`,
-  LP: `LP's`,
+  CD: `CDs`,
+  LP: `LPs`,
   vinyl: 'Vinyls',
 };
 
