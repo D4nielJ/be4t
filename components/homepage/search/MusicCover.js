@@ -35,8 +35,14 @@ const MusicCover = ({ entity }) => {
           )}
         </Box>
       </AspectRatio>
-      <Heading4 mb={1}>{subtitle}</Heading4>
-      <Heading5>{mainTitle}</Heading5>
+      {subtitle ? (
+        <div>
+          <Heading4 mb={1}>{subtitle}</Heading4>
+          <Heading5>{mainTitle}</Heading5>
+        </div>
+      ) : (
+        <Heading4>{mainTitle}</Heading4>
+      )}
     </GridItem>
   );
 };
