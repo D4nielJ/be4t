@@ -3,6 +3,7 @@ import Image from 'next/image';
 import searchOnApi from '../../../lib/searchOnApi';
 import Results from './Results';
 import SearchForm from './SearchForm';
+import { VStack } from '@chakra-ui/react';
 
 const handleSearch = async (query, name, value, setter) => {
   const res = await searchOnApi(query, name, value);
@@ -27,7 +28,7 @@ const Search = () => {
   const [typeState, setTypeState] = useState(initialState);
 
   const formatName = 'format';
-  const formatValues = ['album', 'CD', 'LP', 'Vinyl'];
+  const formatValues = ['album', 'CD', 'LP', 'vinyl'];
   const [formatValue, setFormatValue] = useState(formatValues[0]);
   const [formatState, setFormatState] = useState(initialState);
 
@@ -67,52 +68,22 @@ const Search = () => {
     setFormatValue,
   };
 
+  const typeResultsProps = {
+    state: typeState,
+    value: typeValue,
+  };
+
+  const formatResultsProps = {
+    state: formatState,
+    value: formatValue,
+  };
+
   return (
-    <div>
+    <VStack spacing={10}>
       <SearchForm {...searchInputProps} />
-
-      {/* <Results /> */}
-      {typeState.status === 'success' && (
-        <div>
-          <h2>{typeValue}</h2>
-          <ul>
-            {typeState.entities &&
-              typeState.entities.map((e) => (
-                <div key={e.id}>
-                  <Image
-                    src={e.cover_image}
-                    alt={e.title}
-                    width='200px'
-                    height='200px'
-                  />
-                  <p>{e.title}</p>
-                </div>
-              ))}
-          </ul>
-        </div>
-      )}
-
-      {/* <Results /> */}
-      {formatState.status === 'success' && (
-        <div>
-          <h2>{formatValue}</h2>
-          <ul>
-            {formatState.entities &&
-              formatState.entities.map((e) => (
-                <div key={e.id}>
-                  <Image
-                    src={e.cover_image}
-                    alt={e.title}
-                    width='200px'
-                    height='200px'
-                  />
-                  <p>{e.title}</p>
-                </div>
-              ))}
-          </ul>
-        </div>
-      )}
-    </div>
+      <Results {...typeResultsProps} />
+      <Results {...formatResultsProps} />
+    </VStack>
   );
 };
 

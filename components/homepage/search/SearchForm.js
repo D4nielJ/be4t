@@ -11,6 +11,8 @@ import {
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri';
 import { HiOutlineDotsVertical } from 'react-icons/hi';
 import React from 'react';
+import MainContainer from '../../shared/containers/MainContainer';
+import titlesMap from './_titlesMap';
 
 const SearchForm = ({
   handleFormSearch,
@@ -26,7 +28,7 @@ const SearchForm = ({
   setFormatValue,
 }) => {
   return (
-    <Box maxWidth='container.xl' p={2}>
+    <MainContainer maxWidth='container.xl' pt={5} pb={2}>
       <form onSubmit={handleFormSearch}>
         <InputGroup mb={2}>
           <InputLeftElement>
@@ -70,7 +72,7 @@ const SearchForm = ({
         >
           {typeValues.map((v) => (
             <option key={v} value={v}>
-              {v}
+              {titlesMap[v]}
             </option>
           ))}
         </Select>
@@ -86,42 +88,12 @@ const SearchForm = ({
         >
           {formatValues.map((v) => (
             <option key={v} value={v}>
-              {v}
+              {titlesMap[v]}
             </option>
           ))}
         </Select>
       </HStack>
-
-      {/* <div>
-        <select
-          value={typeValue}
-          onChange={(e) => {
-            handleSelectChange(e, setTypeValue);
-          }}
-        >
-          {typeValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <select
-          value={formatValue}
-          onChange={(e) => {
-            handleSelectChange(e, setFormatValue);
-          }}
-        >
-          {formatValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div> */}
-    </Box>
+    </MainContainer>
   );
 };
 
