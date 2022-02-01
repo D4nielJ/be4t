@@ -1,5 +1,4 @@
 import {
-  Box,
   Input,
   InputGroup,
   InputLeftElement,
@@ -9,7 +8,6 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri';
-import { HiOutlineDotsVertical } from 'react-icons/hi';
 import React from 'react';
 import MainContainer from '../../shared/containers/MainContainer';
 import titlesMap from './_titlesMap';

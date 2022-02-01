@@ -1,5 +1,4 @@
 import { Grid, GridItem } from '@chakra-ui/react';
-import Image from 'next/image';
 import React from 'react';
 import MainContainer from '../../shared/containers/MainContainer';
 import Heading2 from '../../shared/headings/Heading2';

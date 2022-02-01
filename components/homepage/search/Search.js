@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import searchOnApi from '../../../lib/searchOnApi';
 import Results from './Results';
 import SearchForm from './SearchForm';
