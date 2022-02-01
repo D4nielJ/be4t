@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import searchOnApi from '../../../lib/searchOnApi';
 import Results from './Results';
-import SearchInput from './SearchInput';
+import SearchForm from './SearchForm';
 
 const handleSearch = async (query, name, value, setter) => {
   const res = await searchOnApi(query, name, value);
@@ -61,13 +61,15 @@ const Search = () => {
     handleSelectChange,
     typeValue,
     typeValues,
+    setTypeValue,
     formatValue,
     formatValues,
+    setFormatValue,
   };
 
   return (
     <div>
-      <SearchInput {...searchInputProps} />
+      <SearchForm {...searchInputProps} />
 
       {/* <Results /> */}
       {typeState.status === 'success' && (

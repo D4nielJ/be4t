@@ -4,7 +4,7 @@ import Navbar from '../navbar/Navbar';
 
 const MainLayout = ({ children }) => {
   return (
-    <VStack minH='100vh'>
+    <VStack minH='100vh' bg='#060606' color='white'>
       {children}
       <Navbar />
     </VStack>
