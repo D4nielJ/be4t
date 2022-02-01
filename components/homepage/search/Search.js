@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import searchOnApi from '../../../lib/searchOnApi';
+import Results from './Results';
+import SearchInput from './SearchInput';
 
 const handleSearch = async (query, name, value, setter) => {
   const res = await searchOnApi(query, name, value);
@@ -51,46 +53,23 @@ const Search = () => {
     setValue(e.target.value);
   };
 
+  const searchInputProps = {
+    handleFormSearch,
+    handleQueryChange,
+    cleanSearch,
+    query,
+    handleSelectChange,
+    typeValue,
+    typeValues,
+    formatValue,
+    formatValues,
+  };
+
   return (
     <div>
-      <form onSubmit={handleFormSearch}>
-        <input onChange={handleQueryChange} type='text' value={query} />
-        <button type='submit'>Search</button>
-        <button type='button' onClick={cleanSearch}>
-          Clean
-        </button>
-      </form>
+      <SearchInput {...searchInputProps} />
 
-      <div>
-        <select
-          value={typeValue}
-          onChange={(e) => {
-            handleSelectChange(e, setTypeValue);
-          }}
-        >
-          {typeValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <select
-          value={formatValue}
-          onChange={(e) => {
-            handleSelectChange(e, setFormatValue);
-          }}
-        >
-          {formatValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div>
-
+      {/* <Results /> */}
       {typeState.status === 'success' && (
         <div>
           <h2>{typeValue}</h2>
@@ -111,6 +90,7 @@ const Search = () => {
         </div>
       )}
 
+      {/* <Results /> */}
       {formatState.status === 'success' && (
         <div>
           <h2>{formatValue}</h2>
