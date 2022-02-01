@@ -3,7 +3,7 @@ import React from 'react';
 
 const Heading4 = ({ children, ...props }) => {
   return (
-    <Heading fontSize='sm' fontWeight='500' {...props}>
+    <Heading as="h4" fontSize='sm' fontWeight='500' {...props}>
       {children}
     </Heading>
   );

@@ -79,7 +79,7 @@ const Search = () => {
   };
 
   return (
-    <VStack spacing={8}>
+    <VStack spacing={6}>
       <SearchForm {...searchInputProps} />
       <Results {...typeResultsProps} />
       <Results {...formatResultsProps} />
