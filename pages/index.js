@@ -1,12 +1,14 @@
 import Search from '../components/homepage/search/Search';
+import MainLayout from '../components/layouts/MainLayout';
 
 export default function Home() {
   return (
-    <div>
+    <MainLayout>
       <Search />
       {/* Popular artists */}
-      {/* Just for you section */}
+      {/* Collection */}
+      {/* Just For You */}
       {/* Navbar */}
-    </div>
+    </MainLayout>
   );
 }

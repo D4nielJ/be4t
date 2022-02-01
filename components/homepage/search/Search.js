@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import Image from 'next/image';
 import searchOnApi from '../../../lib/searchOnApi';
+import Results from './Results';
+import SearchForm from './SearchForm';
+import { VStack } from '@chakra-ui/react';
 
 const handleSearch = async (query, name, value, setter) => {
   const res = await searchOnApi(query, name, value);
@@ -11,26 +13,23 @@ const handleSearch = async (query, name, value, setter) => {
   }
 };
 
+const initialState = {
+  entities: [],
+  pagination: null,
+  status: 'idle',
+  error: null,
+};
+
 const Search = () => {
   const typeName = 'type';
   const typeValues = ['artist', 'master', 'release', 'label'];
   const [typeValue, setTypeValue] = useState(typeValues[0]);
-  const [typeState, setTypeState] = useState({
-    entities: [],
-    pagination: null,
-    status: 'idle',
-    error: null,
-  });
+  const [typeState, setTypeState] = useState(initialState);
 
   const formatName = 'format';
-  const formatValues = ['album', 'CD', 'LP', 'Vinyl'];
+  const formatValues = ['album', 'CD', 'LP', 'vinyl'];
   const [formatValue, setFormatValue] = useState(formatValues[0]);
-  const [formatState, setFormatState] = useState({
-    entities: [],
-    pagination: null,
-    status: 'idle',
-    error: null,
-  });
+  const [formatState, setFormatState] = useState(initialState);
 
   const [query, setQuery] = useState('');
 
@@ -46,92 +45,44 @@ const Search = () => {
 
   const cleanSearch = () => {
     setQuery('');
+    setTypeState(initialState);
+    setFormatState(initialState);
   };
 
   const handleSelectChange = (e, setValue) => {
     setValue(e.target.value);
   };
 
+  const searchInputProps = {
+    handleFormSearch,
+    handleQueryChange,
+    cleanSearch,
+    query,
+    handleSelectChange,
+    typeValue,
+    typeValues,
+    setTypeValue,
+    formatValue,
+    formatValues,
+    setFormatValue,
+  };
+
+  const typeResultsProps = {
+    state: typeState,
+    value: typeValue,
+  };
+
+  const formatResultsProps = {
+    state: formatState,
+    value: formatValue,
+  };
+
   return (
-    <div>
-      <form onSubmit={handleFormSearch}>
-        <input onChange={handleQueryChange} type='text' value={query} />
-        <button type='submit'>Search</button>
-        <button type='button' onClick={cleanSearch}>
-          Clean
-        </button>
-      </form>
-
-      <div>
-        <select
-          value={typeValue}
-          onChange={(e) => {
-            handleSelectChange(e, setTypeValue);
-          }}
-        >
-          {typeValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div>
-        <select
-          value={formatValue}
-          onChange={(e) => {
-            handleSelectChange(e, setFormatValue);
-          }}
-        >
-          {formatValues.map((v) => (
-            <option key={v} value={v}>
-              {v}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {typeState.status === 'success' && (
-        <div>
-          <h2>{typeValue}</h2>
-          <ul>
-            {typeState.entities &&
-              typeState.entities.map((e) => (
-                <div key={e.id}>
-                  <Image
-                    src={e.cover_image}
-                    alt={e.title}
-                    width='200px'
-                    height='200px'
-                  />
-                  <p>{e.title}</p>
-                </div>
-              ))}
-          </ul>
-        </div>
-      )}
-
-      {formatState.status === 'success' && (
-        <div>
-          <h2>{formatValue}</h2>
-          <ul>
-            {formatState.entities &&
-              formatState.entities.map((e) => (
-                <div key={e.id}>
-                  <Image
-                    src={e.cover_image}
-                    alt={e.title}
-                    width='200px'
-                    height='200px'
-                  />
-                  <p>{e.title}</p>
-                </div>
-              ))}
-          </ul>
-        </div>
-      )}
-    </div>
+    <VStack spacing={6}>
+      <SearchForm {...searchInputProps} />
+      <Results {...typeResultsProps} />
+      <Results {...formatResultsProps} />
+    </VStack>
   );
 };
 
