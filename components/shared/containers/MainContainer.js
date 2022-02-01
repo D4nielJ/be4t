@@ -3,7 +3,7 @@ import React from 'react';
 
 const MainContainer = ({ children, ...props }) => {
   return (
-    <Box maxWidth='container.xl' px={5} {...props}>
+    <Box maxWidth='container.xl' w='100%' px={5} {...props}>
       {children}
     </Box>
   );

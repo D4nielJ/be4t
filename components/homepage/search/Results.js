@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import MainContainer from '../../shared/containers/MainContainer';
 import Heading2 from '../../shared/headings/Heading2';
+import MusicCover from './MusicCover';
 import titlesMap from './_titlesMap';
 
 const Results = ({ state, value }) => {
@@ -13,17 +14,7 @@ const Results = ({ state, value }) => {
           <Heading2>{titlesMap[value]}</Heading2>
           <Grid templateColumns='repeat(3, 1fr)' gap={4} as='ul'>
             {state.entities &&
-              state.entities.map((e) => (
-                <GridItem key={e.id}>
-                  <Image
-                    src={e.cover_image}
-                    alt={e.title}
-                    width='200px'
-                    height='200px'
-                  />
-                  <p>{e.title}</p>
-                </GridItem>
-              ))}
+              state.entities.map((e) => <MusicCover key={e.id} entity={e} />)}
           </Grid>
         </div>
       )}
