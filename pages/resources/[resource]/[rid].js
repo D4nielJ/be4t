@@ -15,10 +15,14 @@ const Resource = () => {
 
   useEffect(() => {
     const requestToApi = async () => {
-      const { data, error } = await fetchApi(`${resource}s/${rid}`);
+      const { data, error: e } = await fetchApi(`${resource}s/${rid}`);
       setData(data);
-      setError(error);
-      setStatus('fulfilled');
+      setError(e);
+      if (e) {
+        setStatus('error');
+      } else {
+        setStatus('fulfilled');
+      }
     };
 
     if (resource && rid) {

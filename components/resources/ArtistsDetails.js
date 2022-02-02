@@ -21,7 +21,7 @@ const ArtistsDetails = ({ data }) => {
             </Box>
           </AspectRatio>
         )}
-        <Heading2>{name}</Heading2>
+        <Heading2 textAlign='center'>{name}</Heading2>
         <Text
           fontSize='sm'
           textAlign='center'

@@ -9,9 +9,9 @@ import Chevron from '../../shared/buttons/Chevron';
 const Results = ({ state, value, handlePagination, setter }) => {
   const { status, entities } = state;
 
-  let prevQ,
-    nextQ = null;
-  try {
+  let prevQ = null;
+  let nextQ = null;
+  if (state && state.pagination && state.pagination.urls) {
     const {
       pagination: {
         urls: { prev, next },
@@ -19,7 +19,7 @@ const Results = ({ state, value, handlePagination, setter }) => {
     } = state;
     prevQ = prev && prev.replace('https://api.discogs.com/', '');
     nextQ = next && next.replace('https://api.discogs.com/', '');
-  } catch {}
+  }
 
   return (
     <MainContainer>
