@@ -7,7 +7,7 @@ import titlesMap from './_titlesMap';
 import searchOnApi from '../../../lib/searchOnApi';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-const Results = ({ state, value }) => {
+const Results = ({ state, value, handlePagination, setter }) => {
   const {
     status,
     entities,
@@ -15,8 +15,6 @@ const Results = ({ state, value }) => {
       urls: { prev, next },
     },
   } = state;
-
-  
 
   return (
     <MainContainer>
@@ -27,11 +25,11 @@ const Results = ({ state, value }) => {
             <HStack>
               <Icon
                 as={VscChevronLeft}
-                onClick={() => handlePagination(prev)}
+                onClick={() => handlePagination(prev, setter)}
               />
               <Icon
                 as={VscChevronRight}
-                onClick={() => handlePagination(next)}
+                onClick={() => handlePagination(next, setter)}
               />
             </HStack>
           </HStack>
