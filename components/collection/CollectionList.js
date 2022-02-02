@@ -46,11 +46,9 @@ const CollectionList = () => {
 
   return (
     <MainContainer>
-      <VStack as='ul'>
+      <VStack as='ul' gap={2} mt={4}>
         {state.status === 'fulfilled' &&
-          state.entities.map((item) => (
-            <ListItem as='li' listStyleType='none' key={item} item={item} />
-          ))}
+          state.entities.map((item) => <ListItem key={item} item={item} />)}
       </VStack>
     </MainContainer>
   );
