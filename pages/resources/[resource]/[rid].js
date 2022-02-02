@@ -33,10 +33,14 @@ const Resource = () => {
   return (
     <MainLayout>
       <NavigationNavbar />
-      {resource === 'artist' ? (
-        <ArtistsDetails data={data} />
-      ) : (
-        <ResourceDetails data={data} />
+      {status === 'fulfilled' && (
+        <>
+          {resource === 'artist' ? (
+            <ArtistsDetails data={data} />
+          ) : (
+            <ResourceDetails data={data} />
+          )}
+        </>
       )}
     </MainLayout>
   );
