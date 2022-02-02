@@ -30,6 +30,10 @@ const Resource = () => {
     }
   }, [resource, rid]);
 
+  if (status === 'loading') {
+    return <div>Loading</div>;
+  }
+
   return (
     <MainLayout>
       <NavigationNavbar />
