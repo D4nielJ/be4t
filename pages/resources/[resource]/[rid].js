@@ -1,26 +1,43 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MainLayout from '../../../components/layouts/MainLayout';
-import searchOnApi from '../../../lib/searchOnApi';
+import NavigationNavbar from '../../../components/navigationNavbar/NavigationNavbar';
+import ArtistsDetails from '../../../components/resources/ArtistsDetails';
+import ResourceDetails from '../../../components/resources/ResourceDetails';
+import fetchApi from '../../../lib/fetchApi';
 
 const DISCOGS_URL = 'https://api.discogs.com/';
 
 const Resource = () => {
   const router = useRouter();
   const { resource, rid } = router.query;
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState('loading');
 
   useEffect(() => {
+    const requestToApi = async () => {
+      const { data, error } = await fetchApi(
+        `${DISCOGS_URL}/${resource}s/${rid}`
+      );
+      setData(data);
+      setError(error);
+      setStatus('fulfilled');
+    };
+
     if (resource && rid) {
-      searchOnApi(`${DISCOGS_URL}/${resource}s/${rid}`);
+      requestToApi();
     }
-  });
+  }, [resource, rid]);
 
   return (
     <MainLayout>
-      <div>
-        <p>{`resource: ${resource}`}</p>
-        <p>{`id: ${rid}`}</p>
-      </div>
+      <NavigationNavbar />
+      {resource === 'artist' ? (
+        <ArtistsDetails data={data} />
+      ) : (
+        <ResourceDetails data={data} />
+      )}
     </MainLayout>
   );
 };
