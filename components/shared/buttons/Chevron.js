@@ -2,7 +2,7 @@ import { Box, Icon } from '@chakra-ui/react';
 import React from 'react';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
-const Chevron = ({ onClick, disabled, isLeft, ...props }) => {
+const Chevron = ({ onClick, disabled, fontSize = 'lg', isLeft, ...props }) => {
   return (
     <Box
       as='button'
@@ -13,7 +13,10 @@ const Chevron = ({ onClick, disabled, isLeft, ...props }) => {
       disabled={disabled}
       {...props}
     >
-      <Icon fontSize='lg' as={isLeft ? VscChevronLeft : VscChevronRight} />
+      <Icon
+        fontSize={fontSize}
+        as={isLeft ? VscChevronLeft : VscChevronRight}
+      />
     </Box>
   );
 };

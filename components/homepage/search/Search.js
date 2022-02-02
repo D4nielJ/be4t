@@ -1,30 +1,22 @@
 import React, { useState } from 'react';
-import searchOnApi from '../../../lib/searchOnApi';
 import Results from './Results';
 import SearchForm from './SearchForm';
 import { VStack } from '@chakra-ui/react';
-
-const DISCOGS_URL = 'https://api.discogs.com/database/search?q=';
+import fetchApi from '../../../lib/fetchApi';
 
 const handleSearchRequest = async (query, setter) => {
-  const res = await searchOnApi(query);
-  if (!res.error) {
-    setter((prev) => ({ ...prev, ...res, status: 'success' }));
+  const { data, error } = await fetchApi(query);
+  if (!error) {
+    const { pagination, results: entities } = data;
+    setter((prev) => ({ ...prev, pagination, entities, status: 'success' }));
   } else {
-    setter((prev) => ({ ...prev, ...res, status: 'error' }));
+    setter((prev) => ({ ...prev, status: 'error' }));
   }
 };
 
 const initialState = {
   entities: [],
-  pagination: {
-    urls: {
-      first: null,
-      next: null,
-      prev: null,
-      last: null,
-    },
-  },
+  pagination: {},
   status: 'idle',
   error: null,
 };
@@ -48,8 +40,8 @@ const Search = () => {
 
   const handleFormSearch = async (e) => {
     e.preventDefault();
-    const typeQuery = `${DISCOGS_URL}${query}&${typeName}=${typeValue}&per_page=6`;
-    const formatQuery = `${DISCOGS_URL}${query}&${formatName}=${formatValue}&per_page=6`;
+    const typeQuery = `database/search?q=${query}&${typeName}=${typeValue}&per_page=6`;
+    const formatQuery = `database/search?q=${query}&${formatName}=${formatValue}&per_page=6`;
     handleSearchRequest(typeQuery, setTypeState);
     handleSearchRequest(formatQuery, setFormatState);
   };
