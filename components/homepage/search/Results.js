@@ -7,13 +7,19 @@ import titlesMap from './_titlesMap';
 import Chevron from '../../shared/buttons/Chevron';
 
 const Results = ({ state, value, handlePagination, setter }) => {
-  const {
-    status,
-    entities,
-    pagination: {
-      urls: { prev, next },
-    },
-  } = state;
+  const { status, entities } = state;
+
+  let prevQ,
+    nextQ = null;
+  try {
+    const {
+      pagination: {
+        urls: { prev, next },
+      },
+    } = state;
+    prevQ = prev && prev.replace('https://api.discogs.com/', '');
+    nextQ = next && next.replace('https://api.discogs.com/', '');
+  } catch {}
 
   return (
     <MainContainer>
@@ -23,13 +29,13 @@ const Results = ({ state, value, handlePagination, setter }) => {
             <Heading2>{titlesMap[value]}</Heading2>
             <HStack align='center'>
               <Chevron
-                onClick={() => handlePagination(prev, setter)}
-                disabled={!prev}
+                onClick={() => handlePagination(prevQ, setter)}
+                disabled={!prevQ}
                 isLeft
               />
               <Chevron
-                onClick={() => handlePagination(next, setter)}
-                disabled={!next}
+                onClick={() => handlePagination(nextQ, setter)}
+                disabled={!nextQ}
               />
             </HStack>
           </Flex>

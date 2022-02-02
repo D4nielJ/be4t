@@ -21,7 +21,7 @@ const ResourceDetails = ({ data }) => {
             </Box>
           </AspectRatio>
         )}
-        <Heading2>{title}</Heading2>
+        <Heading2 textAlign='center'>{title}</Heading2>
         {artists && (
           <Text fontSize='sm' textAlign='center' opacity='0.75'>
             {artists[0].name}

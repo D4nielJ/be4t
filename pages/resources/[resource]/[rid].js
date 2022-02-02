@@ -6,8 +6,6 @@ import ArtistsDetails from '../../../components/resources/ArtistsDetails';
 import ResourceDetails from '../../../components/resources/ResourceDetails';
 import fetchApi from '../../../lib/fetchApi';
 
-const DISCOGS_URL = 'https://api.discogs.com/';
-
 const Resource = () => {
   const router = useRouter();
   const { resource, rid } = router.query;
@@ -17,9 +15,7 @@ const Resource = () => {
 
   useEffect(() => {
     const requestToApi = async () => {
-      const { data, error } = await fetchApi(
-        `${DISCOGS_URL}/${resource}s/${rid}`
-      );
+      const { data, error } = await fetchApi(`${resource}s/${rid}`);
       setData(data);
       setError(error);
       setStatus('fulfilled');
