@@ -21,8 +21,8 @@ const Navbar = () => {
       color='white'
       spacing={14}
     >
-      <Link href='' as={RiHome2Line} text='Home' />
-      <Link href='' as={RiMusic2Line} text='Collection' />
+      <Link href='/' as={RiHome2Line} text='Home' />
+      <Link href='/collection' as={RiMusic2Line} text='Collection' />
       <Link href='' as={RiAccountPinCircleLine} text='Account' />
     </Flex>
   );
