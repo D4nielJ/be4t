@@ -1,11 +1,10 @@
-import { Grid, HStack, Icon } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
+import { Grid, HStack, Flex } from '@chakra-ui/react';
+import React from 'react';
 import MainContainer from '../../shared/containers/MainContainer';
 import Heading2 from '../../shared/headings/Heading2';
 import MusicCover from './MusicCover';
 import titlesMap from './_titlesMap';
-import searchOnApi from '../../../lib/searchOnApi';
-import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
+import Chevron from '../../shared/buttons/Chevron';
 
 const Results = ({ state, value, handlePagination, setter }) => {
   const {
@@ -20,19 +19,20 @@ const Results = ({ state, value, handlePagination, setter }) => {
     <MainContainer>
       {status === 'success' && (
         <div>
-          <HStack align='center' justify='space-between' mb={4}>
+          <Flex align='center' justify='space-between' mb={4}>
             <Heading2>{titlesMap[value]}</Heading2>
-            <HStack>
-              <Icon
-                as={VscChevronLeft}
+            <HStack align='center'>
+              <Chevron
                 onClick={() => handlePagination(prev, setter)}
+                disabled={!prev}
+                isLeft
               />
-              <Icon
-                as={VscChevronRight}
+              <Chevron
                 onClick={() => handlePagination(next, setter)}
+                disabled={!next}
               />
             </HStack>
-          </HStack>
+          </Flex>
           <Grid templateColumns='repeat(3, 1fr)' gap={4} as='ul'>
             {entities &&
               entities.map((e) => <MusicCover key={e.id} entity={e} />)}
