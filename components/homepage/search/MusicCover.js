@@ -7,13 +7,7 @@ import validateImage from '../../../lib/validateImage';
 import { Heading4, Heading5 } from '../../shared/headings/';
 
 const MusicCover = ({ entity }) => {
-  const {
-    cover_image: coverImage,
-    title,
-    resource_url: resourceUrl,
-    type,
-    id,
-  } = entity;
+  const { cover_image: coverImage, title, type, id } = entity;
   const [mainTitle, subtitle] = title.split(' - ');
 
   return (
