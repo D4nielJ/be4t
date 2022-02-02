@@ -23,7 +23,7 @@ const Navbar = () => {
     >
       <Link href='/' as={RiHome2Line} text='Home' />
       <Link href='/collection' as={RiMusic2Line} text='Collection' />
-      <Link href='' as={RiAccountPinCircleLine} text='Account' />
+      <Link href='/' as={RiAccountPinCircleLine} text='Account' />
     </Flex>
   );
 };
