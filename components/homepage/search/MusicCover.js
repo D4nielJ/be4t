@@ -2,12 +2,8 @@ import { GridItem, AspectRatio, Box, Flex, Icon } from '@chakra-ui/react';
 import Image from 'next/image';
 import React from 'react';
 import { RiMusic2Line } from 'react-icons/ri';
+import validateImage from '../../../lib/validateImage';
 import { Heading4, Heading5 } from '../../shared/headings/';
-
-const NO_IMAGE =
-  'https://s.discogs.com/5a4e8c21144258363e2f7ec77db99264660caf5e/images/spacer.gif';
-
-// "https://s.discogs.com/f38102c394fe497eed459337cec70e801e4c634f/images/spacer.gif"
 
 const MusicCover = ({ entity }) => {
   const { cover_image, title } = entity;
@@ -17,7 +13,14 @@ const MusicCover = ({ entity }) => {
     <GridItem mb={4}>
       <AspectRatio ratio={1} w='full' mb={2}>
         <Box rounded={6}>
-          {cover_image === NO_IMAGE ? (
+          {validateImage(cover_image) ? (
+            <Image
+              src={cover_image}
+              alt={title}
+              layout='fill'
+              objectFit='cover'
+            />
+          ) : (
             <Flex
               w='full'
               h='full'
@@ -27,13 +30,6 @@ const MusicCover = ({ entity }) => {
             >
               <Icon fontSize='4xl' as={RiMusic2Line} />
             </Flex>
-          ) : (
-            <Image
-              src={cover_image}
-              alt={title}
-              layout='fill'
-              objectFit='cover'
-            />
           )}
         </Box>
       </AspectRatio>
