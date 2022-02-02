@@ -41,6 +41,7 @@ const SearchForm = ({
           </InputLeftElement>
           <Input
             name='search'
+            inputMode='search'
             onChange={handleQueryChange}
             type='text'
             value={query}
