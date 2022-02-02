@@ -27,10 +27,6 @@ const ResourceDetails = ({ data }) => {
             {artists[0].name}
           </Text>
         )}
-        {/* Genres */}
-        {/* Year */}
-        {/* Qty on sale and Lowest Price */}
-        {/* Tracklist */}
       </VStack>
     </MainContainer>
   );

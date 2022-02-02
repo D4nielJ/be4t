@@ -31,10 +31,6 @@ const ArtistsDetails = ({ data }) => {
         >
           {profile}
         </Text>
-        {/* Format description */}
-        {/* Expand description if noOfLines > 5 */}
-        {/* External Link (?) */}
-        {/* Releases */}
       </VStack>
     </MainContainer>
   );
