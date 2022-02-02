@@ -25,7 +25,7 @@ const ArtistsDetails = ({ data }) => {
         <Text
           fontSize='sm'
           textAlign='center'
-          noOfLines='5'
+          noOfLines='3'
           opacity='0.75'
           lineHeight='1.65'
         >
