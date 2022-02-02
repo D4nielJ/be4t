@@ -7,6 +7,8 @@ import { Heading4, Heading5 } from '../../shared/headings/';
 const NO_IMAGE =
   'https://s.discogs.com/5a4e8c21144258363e2f7ec77db99264660caf5e/images/spacer.gif';
 
+// "https://s.discogs.com/f38102c394fe497eed459337cec70e801e4c634f/images/spacer.gif"
+
 const MusicCover = ({ entity }) => {
   const { cover_image, title } = entity;
   const [mainTitle, subtitle] = title.split(' - ');

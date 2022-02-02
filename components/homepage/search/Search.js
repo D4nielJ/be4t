@@ -15,7 +15,14 @@ const handleSearch = async (query, name, value, setter) => {
 
 const initialState = {
   entities: [],
-  pagination: null,
+  pagination: {
+    urls: {
+      first: null,
+      next: null,
+      prev: null,
+      last: null,
+    },
+  },
   status: 'idle',
   error: null,
 };
@@ -51,6 +58,10 @@ const Search = () => {
 
   const handleSelectChange = (e, setValue) => {
     setValue(e.target.value);
+  };
+
+  const handlePagination = (query) => {
+    searchOnApi(query);
   };
 
   const searchInputProps = {
