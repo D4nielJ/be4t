@@ -20,6 +20,8 @@ Have you ever wonder how much your music collection might be valued on? Maybe yo
 
 To get started, simply clone this repo and execute `yarn install` or `npm run install` to install the packages, then `cd` into the challenge directory and do `yarn dev` or `npm run dev` to start the Next JS server.
 
+Create a `.env.local` file and set up a `token` of personal access from Discogs like this: `NEXT_PUBLIC_DISCOGS_URL=token`.
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Author
