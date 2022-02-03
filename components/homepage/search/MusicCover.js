@@ -9,13 +9,7 @@ import { Heading4, Heading5 } from '../../shared/headings/';
 import AddToCollection from './AddToCollection';
 
 const MusicCover = ({ entity }) => {
-  const {
-    cover_image: coverImage,
-    title,
-    type,
-    id,
-    user_data: { in_collection: isInCollection },
-  } = entity;
+  const { cover_image: coverImage, title, type, id } = entity;
   const [mainTitle, subtitle] = title.split(' - ');
 
   return (
@@ -44,34 +38,16 @@ const MusicCover = ({ entity }) => {
               )}
             </Box>
           </Link>
-          {type !== 'artist' &&
-            (!isInCollection ? (
-              <AddToCollection type={type} id={id}>
-                <Icon
-                  as={RiAddCircleFill}
-                  position='absolute'
-                  right={2}
-                  top={2}
-                />
-              </AddToCollection>
-            ) : (
+          {type !== 'artist' && (
+            <AddToCollection type={type} id={id}>
               <Icon
-                onClick={() => {}}
-                as={IoMdRemoveCircle}
+                as={RiAddCircleFill}
                 position='absolute'
                 right={2}
                 top={2}
               />
-            ))}
-          {/* {type !== 'artist' && !isInCollection && (
-                <Icon
-                  onClick={() => {}}
-                  as={RiAddCircleFill}
-                  position='absolute'
-                  right={2}
-                  top={2}
-                />
-              )} */}
+            </AddToCollection>
+          )}
         </Box>
       </AspectRatio>
       <Link href={`/resources/${type}/${id}`}>
