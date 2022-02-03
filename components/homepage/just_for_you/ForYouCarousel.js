@@ -3,32 +3,31 @@ import React, { useEffect } from 'react';
 import fetchApi from '../../../lib/fetchApi';
 import useApiEntities from '../../../lib/useApiEntities';
 import MainContainer from '../../shared/containers/MainContainer';
-import { Heading2 } from '../../shared/headings';
+import { Heading3 } from '../../shared/headings';
 import ArtistCover from './ArtistCover';
-import Filters from './Filters';
 
-const fetchEntities = async (setEntities, setStatus, setError) => {
+const fetchEntities = async (setEntities, setStatus) => {
   setStatus('loading');
-  const { data } = await fetchApi('database/search?type=artist&per_page=6');
+  const { data } = await fetchApi(
+    'database/search?type=artist&per_page=6&page=2'
+  );
   const { results } = data;
   setEntities(results);
   setStatus('fulfilled');
 };
 
-const PopularCarousel = () => {
-  const [{ entities, status }, setEntities, setStatus, setError] =
-    useApiEntities();
+const ForYou = () => {
+  const [{ entities, status }, setEntities, setStatus] = useApiEntities();
 
   useEffect(() => {
     if (status === 'idle') {
-      fetchEntities(setEntities, setStatus, setError);
+      fetchEntities(setEntities, setStatus);
     }
-  }, [status, setEntities, setStatus, setError]);
+  }, [status, setEntities, setStatus]);
 
   return (
-    <MainContainer mb={12}>
-      <Heading2 mb={4}>Browse</Heading2>
-      <Filters />
+    <MainContainer>
+      <Heading3 mb={4}>Just for you</Heading3>
       <HStack
         as='ul'
         overflowX='auto'
@@ -45,4 +44,4 @@ const PopularCarousel = () => {
   );
 };
 
-export default PopularCarousel;
+export default ForYou;
