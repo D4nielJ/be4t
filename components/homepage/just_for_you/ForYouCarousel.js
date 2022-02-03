@@ -26,7 +26,7 @@ const ForYou = () => {
   }, [status, setEntities, setStatus]);
 
   return (
-    <MainContainer>
+    <MainContainer pr={0}>
       <Heading3 mb={6}>Just for you</Heading3>
       <HStack
         as='ul'
