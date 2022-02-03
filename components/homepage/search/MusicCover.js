@@ -2,7 +2,7 @@ import { GridItem, AspectRatio, Box, Flex, Icon } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { RiMusic2Line } from 'react-icons/ri';
+import { RiMusic2Line, RiAddCircleFill } from 'react-icons/ri';
 import { IoMdRemoveCircle } from 'react-icons/io';
 import validateImage from '../../../lib/validateImage';
 import { Heading4, Heading5 } from '../../shared/headings/';
@@ -46,7 +46,14 @@ const MusicCover = ({ entity }) => {
           </Link>
           {type !== 'artist' &&
             (!isInCollection ? (
-              <AddToCollection type={type} id={id} />
+              <AddToCollection type={type} id={id}>
+                <Icon
+                  as={RiAddCircleFill}
+                  position='absolute'
+                  right={2}
+                  top={2}
+                />
+              </AddToCollection>
             ) : (
               <Icon
                 onClick={() => {}}

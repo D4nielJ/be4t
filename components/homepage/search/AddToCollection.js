@@ -1,6 +1,4 @@
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
-import { RiAddCircleFill } from 'react-icons/ri';
 import fetchApi from '../../../lib/fetchApi';
 
 const getReleaseId = async (type, id) => {
@@ -9,7 +7,7 @@ const getReleaseId = async (type, id) => {
   return releaseId;
 };
 
-const AddToCollection = ({ type, id, ...props }) => {
+const AddToCollection = ({ type, id, children }) => {
   const handleAddToCollection = async () => {
     let releaseId = id;
     if (type !== 'release') {
@@ -21,18 +19,7 @@ const AddToCollection = ({ type, id, ...props }) => {
     );
     console.log(data);
   };
-  return (
-    <div>
-      <Icon
-        onClick={handleAddToCollection}
-        as={RiAddCircleFill}
-        position='absolute'
-        right={2}
-        top={2}
-        {...props}
-      />
-    </div>
-  );
+  return <div onClick={handleAddToCollection}>{children}</div>;
 };
 
 export default AddToCollection;
