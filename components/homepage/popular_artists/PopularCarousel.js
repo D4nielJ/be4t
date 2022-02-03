@@ -32,6 +32,7 @@ const PopularCarousel = () => {
       <HStack
         as='ul'
         overflowX='auto'
+        className='frs-hide-scroll'
         spacing={8}
         pb={6}
         pr={4}
