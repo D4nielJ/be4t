@@ -11,7 +11,7 @@ const ArtistCover = ({ artist }) => {
 
   return (
     <div>
-      <AspectRatio ratio={5 / 6} w={28} mb={2}>
+      <AspectRatio ratio={5 / 6} w={40} mb={2}>
         <Box rounded={6}>
           <Link href={`/resources/${type}/${id}`} passHref>
             <Box as='a' w='full' h='full'>

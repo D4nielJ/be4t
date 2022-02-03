@@ -27,7 +27,7 @@ const ForYou = () => {
 
   return (
     <MainContainer>
-      <Heading3 mb={4}>Just for you</Heading3>
+      <Heading3 mb={6}>Just for you</Heading3>
       <HStack
         as='ul'
         overflowX='auto'

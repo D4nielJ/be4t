@@ -26,7 +26,7 @@ const PopularCarousel = () => {
   }, [status, setEntities, setStatus, setError]);
 
   return (
-    <MainContainer mb={12}>
+    <MainContainer mb={8}>
       <Heading2 mb={4}>Browse</Heading2>
       <Filters />
       <HStack

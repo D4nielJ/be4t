@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Results from './Results';
 import SearchForm from './SearchForm';
 import { VStack } from '@chakra-ui/react';
@@ -60,6 +60,20 @@ const Search = () => {
     handleSearchRequest(query, setter);
   };
 
+  const [showClean, setShowClean] = useState(false);
+
+  useEffect(() => {
+    if (
+      typeState.entities.length > 0 ||
+      formatState.entities.length > 0 ||
+      query.length > 0
+    ) {
+      setShowClean(true);
+    } else {
+      setShowClean(false);
+    }
+  }, [query, typeState, formatState]);
+
   const searchInputProps = {
     handleFormSearch,
     handleQueryChange,
@@ -72,6 +86,7 @@ const Search = () => {
     formatValue,
     formatValues,
     setFormatValue,
+    showClean,
   };
 
   const typeResultsProps = {
@@ -89,7 +104,7 @@ const Search = () => {
   };
 
   return (
-    <VStack spacing={6} mb={8}>
+    <VStack spacing={6} mb={2}>
       <SearchForm {...searchInputProps} />
       {typeState.entities.length > 0 && <Results {...typeResultsProps} />}
       {formatState.entities.length > 0 && <Results {...formatResultsProps} />}
