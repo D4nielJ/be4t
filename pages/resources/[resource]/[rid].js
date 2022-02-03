@@ -5,6 +5,7 @@ import NavigationNavbar from '../../../components/navigationNavbar/NavigationNav
 import ArtistsDetails from '../../../components/resources/ArtistsDetails';
 import ResourceDetails from '../../../components/resources/ResourceDetails';
 import fetchApi from '../../../lib/fetchApi';
+import LoadingScreen from '../../../components/shared/loading_screen/LoadingScreen';
 
 const Resource = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ const Resource = () => {
   }, [resource, rid]);
 
   if (status === 'loading') {
-    return <div>Loading</div>;
+    return <LoadingScreen />;
   }
 
   return (

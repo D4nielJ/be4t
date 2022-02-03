@@ -6,9 +6,12 @@ import {
   Icon,
   Select,
   HStack,
+  Flex,
+  Box,
 } from '@chakra-ui/react';
 import { RiSearchLine, RiCloseLine } from 'react-icons/ri';
-import React from 'react';
+import { IoIosOptions } from 'react-icons/io';
+import React, { useEffect, useState } from 'react';
 import MainContainer from '../../shared/containers/MainContainer';
 import titlesMap from './_titlesMap';
 
@@ -24,10 +27,13 @@ const SearchForm = ({
   formatValue,
   formatValues,
   setFormatValue,
+  showClean,
 }) => {
+  const [showFilters, setShowFilters] = useState(false);
+
   return (
     <MainContainer maxWidth='container.xl' pt={5} pb={2}>
-      <form onSubmit={handleFormSearch}>
+      <Flex align='center' gap={2} as='form' onSubmit={handleFormSearch}>
         <InputGroup mb={2}>
           <InputLeftElement>
             <button type='submit'>
@@ -48,51 +54,66 @@ const SearchForm = ({
             border='none'
           />
           <InputRightElement>
-            <button type='button' onClick={cleanSearch}>
-              <Icon
-                fontSize='xl'
-                as={RiCloseLine}
-                position='relative'
-                top='2px'
-              />
-            </button>
+            <Flex justifyContent='flex-end'>
+              {showClean && (
+                <button type='button' onClick={cleanSearch}>
+                  <Icon
+                    fontSize='xl'
+                    as={RiCloseLine}
+                    position='relative'
+                    top='3px'
+                  />
+                </button>
+              )}
+            </Flex>
           </InputRightElement>
         </InputGroup>
-      </form>
-      <HStack>
-        <Select
-          value={typeValue}
-          onChange={(e) => {
-            handleSelectChange(e, setTypeValue);
+
+        <button
+          type='button'
+          onClick={() => {
+            setShowFilters((prev) => !prev);
           }}
-          variant='filled'
-          size='sm'
-          bg='gray.400'
-          color='black'
         >
-          {typeValues.map((v) => (
-            <option key={v} value={v}>
-              {titlesMap[v]}
-            </option>
-          ))}
-        </Select>
-        <Select
-          value={formatValue}
-          onChange={(e) => {
-            handleSelectChange(e, setFormatValue);
-          }}
-          variant='filled'
-          size='sm'
-          bg='gray.400'
-          color='black'
-        >
-          {formatValues.map((v) => (
-            <option key={v} value={v}>
-              {titlesMap[v]}
-            </option>
-          ))}
-        </Select>
-      </HStack>
+          <Icon fontSize='xl' as={IoIosOptions} position='relative' />
+        </button>
+      </Flex>
+      {showFilters && (
+        <HStack>
+          <Select
+            value={typeValue}
+            onChange={(e) => {
+              handleSelectChange(e, setTypeValue);
+            }}
+            variant='filled'
+            size='sm'
+            bg='gray.400'
+            color='black'
+          >
+            {typeValues.map((v) => (
+              <option key={v} value={v}>
+                {titlesMap[v]}
+              </option>
+            ))}
+          </Select>
+          <Select
+            value={formatValue}
+            onChange={(e) => {
+              handleSelectChange(e, setFormatValue);
+            }}
+            variant='filled'
+            size='sm'
+            bg='gray.400'
+            color='black'
+          >
+            {formatValues.map((v) => (
+              <option key={v} value={v}>
+                {titlesMap[v]}
+              </option>
+            ))}
+          </Select>
+        </HStack>
+      )}
     </MainContainer>
   );
 };

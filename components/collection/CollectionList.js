@@ -4,6 +4,7 @@ import fetchApi from '../../lib/fetchApi';
 import useApiEntities from '../../lib/useApiEntities';
 import MainContainer from '../shared/containers/MainContainer';
 import ListItem from './ListItem';
+import LoadingScreen from '../shared/loading_screen/LoadingScreen';
 
 const handleRequestCollection = async (
   query,
@@ -40,7 +41,7 @@ const CollectionList = () => {
   }, [status, setEntities, setStatus, setError]);
 
   if (status === 'loading') {
-    return <div>Loading...</div>;
+    return <LoadingScreen />;
   }
 
   return (
