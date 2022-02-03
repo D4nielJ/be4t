@@ -1,9 +1,11 @@
-import { Flex, Heading, Box } from '@chakra-ui/react';
+import { Flex, Heading, Link } from '@chakra-ui/react';
 import React from 'react';
+import { Heading4 } from '../headings';
 
 const LoadingScreen = () => {
   return (
     <Flex
+      direction='column'
       justify='center'
       align='center'
       position='absolute'
@@ -13,6 +15,7 @@ const LoadingScreen = () => {
       w='full'
       bg='black'
       zIndex='10'
+      color='white'
     >
       <Heading
         fontSize='4xl'
@@ -20,15 +23,24 @@ const LoadingScreen = () => {
         letterSpacing='20px'
         textAlign='center'
         fontStyle='italic'
-        color='white'
         position='relative'
-        bottom={6}
         left={1.5}
         className='bgAnimation'
         bgClip='text'
       >
         BE4T
       </Heading>
+      <Heading4 textAlign='center'>
+        Powered by{' '}
+        <Link
+          href='https://www.discogs.com/'
+          target='_blank'
+          rel='noopener noreferrer'
+          textDecor='underline'
+        >
+          Discogs
+        </Link>
+      </Heading4>
     </Flex>
   );
 };
