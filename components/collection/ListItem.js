@@ -5,7 +5,7 @@ import { Heading4, Heading5 } from '../shared/headings';
 import { RiDeleteBin7Line } from 'react-icons/ri';
 import RemoveFromCollection from '../shared/functional/RemoveFromCollection';
 
-const ListItem = ({ item, setLoadCollection }) => {
+const ListItem = ({ item, setCollectionStatus }) => {
   const {
     id,
     instance_id: instanceId,
@@ -34,7 +34,7 @@ const ListItem = ({ item, setLoadCollection }) => {
       <RemoveFromCollection
         instanceId={instanceId}
         releaseId={id}
-        setLoadCollection={setLoadCollection}
+        setCollectionStatus={setCollectionStatus}
       >
         <Icon
           onClick={() => {}}

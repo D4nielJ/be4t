@@ -26,20 +26,18 @@ const handleRequestCollection = async (
 
 const CollectionList = () => {
   const [state, setEntities, setStatus, setError] = useApiEntities();
-  const [loadCollection, setLoadCollection] = useState(true);
   const { status } = state;
 
   useEffect(() => {
-    if (status !== 'loading' && loadCollection) {
+    if (status === 'idle') {
       handleRequestCollection(
         '/users/d4nielj/collection/folders/0/releases',
         setEntities,
         setStatus,
         setError
       );
-      setLoadCollection(false);
     }
-  }, [status, setEntities, setStatus, setError, loadCollection]);
+  }, [status, setEntities, setStatus, setError]);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -53,7 +51,7 @@ const CollectionList = () => {
             <ListItem
               key={item.id}
               item={item}
-              setLoadCollection={setLoadCollection}
+              setCollectionStatus={setStatus}
             />
           ))}
       </VStack>

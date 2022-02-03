@@ -5,7 +5,7 @@ import fetchApi from '../../../lib/fetchApi';
 const RemoveFromCollection = ({
   releaseId,
   instanceId,
-  setLoadCollection,
+  setCollectionStatus,
   children,
 }) => {
   const [disabled, setDisabled] = useState(false);
@@ -17,7 +17,7 @@ const RemoveFromCollection = ({
       'DELETE'
     );
     setDisabled(false);
-    setLoadCollection(true);
+    setCollectionStatus('idle');
   };
 
   return (
