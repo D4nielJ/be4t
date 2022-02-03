@@ -27,7 +27,6 @@ const handleRequestCollection = async (
 const CollectionList = () => {
   const [state, setEntities, setStatus, setError] = useApiEntities();
   const { status } = state;
-  console.log(state);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -48,7 +47,7 @@ const CollectionList = () => {
     <MainContainer>
       <VStack as='ul' gap={2} mt={4}>
         {state.status === 'fulfilled' &&
-          state.entities.map((item) => <ListItem key={item} item={item} />)}
+          state.entities.map((item) => <ListItem key={item.id} item={item} />)}
       </VStack>
     </MainContainer>
   );
