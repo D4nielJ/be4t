@@ -1,5 +1,5 @@
-import { VStack, Box } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
+import { VStack } from '@chakra-ui/react';
 import fetchApi from '../../lib/fetchApi';
 import useApiEntities from '../../lib/useApiEntities';
 import MainContainer from '../shared/containers/MainContainer';

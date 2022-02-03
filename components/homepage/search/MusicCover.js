@@ -2,20 +2,27 @@ import { GridItem, AspectRatio, Box, Flex, Icon } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { RiMusic2Line } from 'react-icons/ri';
+import { RiMusic2Line, RiAddCircleFill } from 'react-icons/ri';
 import validateImage from '../../../lib/validateImage';
 import { Heading4, Heading5 } from '../../shared/headings/';
+import AddToCollection from './AddToCollection';
 
 const MusicCover = ({ entity }) => {
-  const { cover_image: coverImage, title, type, id } = entity;
+  const {
+    cover_image: coverImage,
+    title,
+    type,
+    id,
+    user_data: { in_collection: isInCollection },
+  } = entity;
   const [mainTitle, subtitle] = title.split(' - ');
 
   return (
     <GridItem mb={4}>
-      <Link href={`/resources/${type}/${id}`}>
-        <a>
-          <AspectRatio ratio={1} w='full' mb={2}>
-            <Box rounded={6}>
+      <AspectRatio ratio={1} w='full' mb={2}>
+        <Box rounded={6}>
+          <Link href={`/resources/${type}/${id}`}>
+            <a>
               {validateImage(coverImage) ? (
                 <Image
                   src={coverImage}
@@ -34,8 +41,27 @@ const MusicCover = ({ entity }) => {
                   <Icon fontSize='4xl' as={RiMusic2Line} />
                 </Flex>
               )}
-            </Box>
-          </AspectRatio>
+            </a>
+          </Link>
+          {type !== 'artist' &&
+            (!isInCollection ? (
+              <AddToCollection type={type} id={id} />
+            ) : (
+              <Icon onClick={() => {}} position='absolute' right={2} top={2} />
+            ))}
+          {/* {type !== 'artist' && !isInCollection && (
+                <Icon
+                  onClick={() => {}}
+                  as={RiAddCircleFill}
+                  position='absolute'
+                  right={2}
+                  top={2}
+                />
+              )} */}
+        </Box>
+      </AspectRatio>
+      <Link href={`/resources/${type}/${id}`}>
+        <a>
           {subtitle ? (
             <div>
               <Heading4 mb={1}>{subtitle}</Heading4>
