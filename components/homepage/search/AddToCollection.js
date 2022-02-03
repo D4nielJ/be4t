@@ -26,6 +26,7 @@ const AddToCollection = ({ type, id, children }) => {
 
   return (
     <Box
+      as='button'
       type='button'
       onClick={handleAddToCollection}
       _disabled={{ opacity: 0.3 }}
