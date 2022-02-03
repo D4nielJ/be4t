@@ -1,0 +1,18 @@
+:root {
+  --brand-gradient: linear-gradient(45deg, #f08a78, #a2f3cb, #328eff);
+}
+
+.bgAnimation {
+  background-image: var(--brand-gradient);
+  background-size: 500%;
+  animation: bg-animation 2s infinite alternate ease-in;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-position: left;
+  }
+  100% {
+    background-position: right;
+  }
+}
