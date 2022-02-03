@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VStack } from '@chakra-ui/react';
 import fetchApi from '../../lib/fetchApi';
 import useApiEntities from '../../lib/useApiEntities';
@@ -26,18 +26,20 @@ const handleRequestCollection = async (
 
 const CollectionList = () => {
   const [state, setEntities, setStatus, setError] = useApiEntities();
+  const [loadCollection, setLoadCollection] = useState(true);
   const { status } = state;
 
   useEffect(() => {
-    if (status === 'idle') {
+    if (status !== 'loading' && loadCollection) {
       handleRequestCollection(
         '/users/d4nielj/collection/folders/0/releases',
         setEntities,
         setStatus,
         setError
       );
+      setLoadCollection(false);
     }
-  }, [status, setEntities, setStatus, setError]);
+  }, [status, setEntities, setStatus, setError, loadCollection]);
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -47,7 +49,13 @@ const CollectionList = () => {
     <MainContainer>
       <VStack as='ul' gap={2} mt={4}>
         {state.status === 'fulfilled' &&
-          state.entities.map((item) => <ListItem key={item.id} item={item} />)}
+          state.entities.map((item) => (
+            <ListItem
+              key={item.id}
+              item={item}
+              setLoadCollection={setLoadCollection}
+            />
+          ))}
       </VStack>
     </MainContainer>
   );

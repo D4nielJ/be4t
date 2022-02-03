@@ -3,9 +3,12 @@ import { Box, AspectRatio, Flex, VStack, Icon } from '@chakra-ui/react';
 import Image from 'next/image';
 import { Heading4, Heading5 } from '../shared/headings';
 import { RiDeleteBin7Line } from 'react-icons/ri';
+import RemoveFromCollection from '../shared/functional/RemoveFromCollection';
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, setLoadCollection }) => {
   const {
+    id,
+    instance_id: instanceId,
     basic_information: { title, thumb, artists },
   } = item;
 
@@ -28,13 +31,19 @@ const ListItem = ({ item }) => {
         <Heading4>{title}</Heading4>
         <Heading5>{artists[0].name}</Heading5>
       </VStack>
-      <Icon
-        onClick={() => {}}
-        as={RiDeleteBin7Line}
-        position='absolute'
-        right={4}
-        bottom={4}
-      />
+      <RemoveFromCollection
+        instanceId={instanceId}
+        releaseId={id}
+        setLoadCollection={setLoadCollection}
+      >
+        <Icon
+          onClick={() => {}}
+          as={RiDeleteBin7Line}
+          position='absolute'
+          right={4}
+          bottom={4}
+        />
+      </RemoveFromCollection>
     </Flex>
   );
 };

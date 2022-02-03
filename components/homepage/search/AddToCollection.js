@@ -12,7 +12,7 @@ const AddToCollection = ({ type, id, children }) => {
   const [disabled, setDisabled] = useState(false);
 
   const handleAddToCollection = async () => {
-    setDisable(true);
+    setDisabled(true);
     let releaseId = id;
     if (type !== 'release') {
       releaseId = await getReleaseId(type, id);
@@ -21,7 +21,7 @@ const AddToCollection = ({ type, id, children }) => {
       `users/d4nielj/collection/folders/1/releases/${releaseId}`,
       'POST'
     );
-    setDisable(false);
+    setDisabled(false);
   };
 
   return (
